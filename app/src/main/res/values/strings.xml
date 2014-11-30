@@ -9,5 +9,6 @@
     <string name="transactionViewDateLabel">Data:</string>
     <string name="transactionViewValueLabel">Valor:</string>
     <string name="transactionViewEditTransactionButton">Editar</string>
+    <string name="title_activity_edit_transaction_view">EditTransactionView</string>
 
 </resources>
