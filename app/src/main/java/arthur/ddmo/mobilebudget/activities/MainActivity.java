@@ -1,13 +1,13 @@
 package arthur.ddmo.mobilebudget.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import arthur.ddmo.mobilebudget.R;
 
@@ -24,8 +24,9 @@ public class MainActivity extends Activity {
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast t = Toast.makeText(getApplicationContext(), "asdasdasdasddas", Toast.LENGTH_SHORT);
-                    t.show();
+                    Intent startEditActivity = new Intent(getApplicationContext(), EditTransactionActivity.class);
+                    startEditActivity.putExtra("things", "thing");
+                    startActivity(startEditActivity);
                 }
             });
         }

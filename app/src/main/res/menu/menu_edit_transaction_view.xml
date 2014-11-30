@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="arthur.ddmo.mobilebudget.activities.EditTransactionView">
+    tools:context="arthur.ddmo.mobilebudget.activities.EditTransactionActivity">
 
     <item android:id="@+id/confirm_entry" android:title="Salvar" android:showAsAction="always"/>
 </menu>

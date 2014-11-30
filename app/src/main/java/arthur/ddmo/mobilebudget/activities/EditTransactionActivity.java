@@ -7,7 +7,7 @@ import android.view.MenuItem;
 
 import arthur.ddmo.mobilebudget.R;
 
-public class EditTransactionView extends Activity {
+public class EditTransactionActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

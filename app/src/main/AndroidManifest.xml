@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="arthur.ddmo.mobilebudget.activities.EditTransactionView"
+            android:name=".activities.EditTransactionActivity"
             android:label="@string/title_activity_edit_transaction_view"
             android:parentActivityName="arthur.ddmo.mobilebudget.activities.MainActivity"
             android:windowSoftInputMode="adjustPan">
