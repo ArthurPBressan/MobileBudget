@@ -3,17 +3,26 @@
     package="arthur.ddmo.mobilebudget" >
 
     <application
+        android:name="com.orm.SugarApp"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name="com.orm.SugarApp">
-        <meta-data android:name="DATABASE" android:value="mobile_budget.db"/>
-        <meta-data android:name="VERSION" android:value="1"/>
-        <meta-data android:name="QUERY_LOG" android:value="false"/>
-        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="arthur.ddmo.mobilebudget.models"/>
+        android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="DATABASE"
+            android:value="mobile_budget.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="false" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="arthur.ddmo.mobilebudget.models" />
+
         <activity
-            android:name="arthur.ddmo.mobilebudget.MainActivity"
+            android:name="arthur.ddmo.mobilebudget.activities.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

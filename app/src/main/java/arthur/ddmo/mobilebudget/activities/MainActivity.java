@@ -1,30 +1,18 @@
-package arthur.ddmo.mobilebudget;
+package arthur.ddmo.mobilebudget.activities;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import arthur.ddmo.mobilebudget.fragments.TransactionFragment;
+import arthur.ddmo.mobilebudget.R;
 
-
-public class MainActivity extends Activity implements TransactionFragment.OnFragmentInteractionListener {
-    @Override
-    public void onFragmentInteraction(String id) {
-
-    }
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (savedInstanceState == null) {
-                getFragmentManager().beginTransaction()
-                        .add(R.id.container, new TransactionFragment())
-                        .commit();
-        }
     }
 
 
