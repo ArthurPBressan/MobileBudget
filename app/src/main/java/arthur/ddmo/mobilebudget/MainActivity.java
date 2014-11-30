@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 
+import arthur.ddmo.mobilebudget.fragments.PlaceholderFragment;
+
 
 public class MainActivity extends Activity {
 
@@ -46,21 +48,5 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.transaction_entry, container, false);
-            return rootView;
-        }
     }
 }
