@@ -32,13 +32,13 @@ public class MainActivity extends ListActivity {
         createRefreshThread().start();
     }
 
+    private Runnable transactionListRunnable = new Runnable() {
+        @Override
+        public void run() {
+            transactionListHandler.sendEmptyMessage(0);
+        }
+    };
     private Thread createRefreshThread() {
-        Runnable transactionListRunnable = new Runnable() {
-            @Override
-            public void run() {
-                transactionListHandler.sendEmptyMessage(0);
-            }
-        };
         return new Thread(null, transactionListRunnable, "FillTransactionsThread");
     }
 
@@ -92,7 +92,6 @@ public class MainActivity extends ListActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.KEY_EDIT_TRANSACTION_CODE && resultCode == Constants.RESULT_TRANSACTION_OK) {
-
             createRefreshThread().start();
         }
     }
