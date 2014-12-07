@@ -11,11 +11,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.LogRecord;
 
+import arthur.ddmo.mobilebudget.Constants;
 import arthur.ddmo.mobilebudget.R;
 import arthur.ddmo.mobilebudget.adapters.TransactionAdapter;
 import arthur.ddmo.mobilebudget.models.Transaction;
@@ -49,13 +51,21 @@ public class MainActivity extends ListActivity {
         @Override
         public void handleMessage(Message msg) {
 
-            transactions.add(new Transaction(20, new Date()));
+            transactions.add(new Transaction(20, 2014, 12, 07));
             transactionAdapter = new TransactionAdapter(MainActivity.this, R.layout.transaction_view, transactions);
 
             setListAdapter(transactionAdapter);
         }
     };
 
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        Transaction transaction = transactions.get(position);
+        Intent startEditTransaction = new Intent(getApplicationContext(), EditTransactionActivity.class);
+        startEditTransaction.putExtra(Constants.KEY_INTENT_TRANSACTION, transaction.getId());
+        startActivity(startEditTransaction);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -73,8 +83,8 @@ public class MainActivity extends ListActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_new_transaction) {
-            Intent startNewTransactioNActivity = new Intent(getApplicationContext(), EditTransactionActivity.class);
-            startActivity(startNewTransactioNActivity);
+            Intent startNewTransaction = new Intent(getApplicationContext(), EditTransactionActivity.class);
+            startActivity(startNewTransaction);
             return true;
         }
         if (id == R.id.action_open_reports) {

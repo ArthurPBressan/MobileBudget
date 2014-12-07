@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import arthur.ddmo.mobilebudget.R;
@@ -38,11 +40,11 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
             TextView valueTextView = (TextView) convertView.findViewById(R.id.transaction_view_text_value);
 
             if (valueTextView != null) {
-                valueTextView.setText(String.valueOf(transaction.getValue()));
+                valueTextView.setText(transaction.getValueString());
             }
 
             if (dateTextView != null) {
-                dateTextView.setText(transaction.getDate().toString());
+                dateTextView.setText(transaction.getDateString());
             }
 
         }
