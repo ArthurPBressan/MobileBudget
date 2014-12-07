@@ -15,7 +15,9 @@
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/transactionsScrollViewContainer">
+            android:id="@+id/transactionsScrollViewContainer"
+            android:showDividers="middle"
+            android:divider="@drawable/divider">
 
             <view
                 android:layout_width="fill_parent"

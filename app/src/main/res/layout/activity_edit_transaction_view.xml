@@ -31,32 +31,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp">
-
-        <ToggleButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="New ToggleButton"
-            android:id="@+id/toggleButton"
-            android:layout_weight="1" />
-
-        <ToggleButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="New ToggleButton"
-            android:id="@+id/toggleButton2"
-            android:layout_weight="1" />
-    </LinearLayout>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
     <DatePicker
         android:layout_width="match_parent"
         android:layout_height="0dp"

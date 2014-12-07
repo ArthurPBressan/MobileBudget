@@ -2,13 +2,10 @@
 <resources>
 
     <string name="app_name">MobileBudget</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="transactionViewDateLabel">Data:</string>
-    <string name="transactionViewValueLabel">Valor:</string>
-    <string name="transactionViewEditTransactionButton">Editar</string>
-    <string name="title_activity_edit_transaction_view">EditTransactionView</string>
+    <string name="title_activity_edit_transaction_view">Editar Transação</string>
+    <string name="title_activity_new_transaction_view">Nova Transação</string>
+    <string name="action_new_transaction">Nova Transação</string>
+    <string name="action_open_reports">Relatorios</string>
 
 </resources>
