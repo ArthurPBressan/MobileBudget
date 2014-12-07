@@ -32,7 +32,9 @@ public class TransactionView extends LinearLayout {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.transaction_view, this);
 
-        transactionValue = (TextView) findViewById(R.id.transactionValue);
-        transactionDate = (TextView) findViewById(R.id.transactionDate);
+        transactionValue = (TextView) findViewById(R.id.transaction_view_text_value);
+        transactionDate = (TextView) findViewById(R.id.transaction_view_text_date);
     }
+
+
 }

@@ -1,36 +1,60 @@
 package arthur.ddmo.mobilebudget.activities;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import arthur.ddmo.mobilebudget.R;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.LogRecord;
 
-public class MainActivity extends Activity {
+import arthur.ddmo.mobilebudget.R;
+import arthur.ddmo.mobilebudget.adapters.TransactionAdapter;
+import arthur.ddmo.mobilebudget.models.Transaction;
+
+public class MainActivity extends ListActivity {
+
+    private ArrayList<Transaction> transactions;
+    private TransactionAdapter transactionAdapter;
+    private Runnable transactionListRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        LinearLayout scrollViewContent = (LinearLayout) findViewById(R.id.transactionsScrollViewContainer);
-        LayoutInflater layoutInflater = LayoutInflater.from(this);
-        for (int i = 0; i<50; i++) {
-            LinearLayout tv = (LinearLayout) layoutInflater.inflate(R.layout.transaction_view, scrollViewContent);
-            tv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent startEditActivity = new Intent(getApplicationContext(), EditTransactionActivity.class);
-                    startEditActivity.putExtra("things", "thing");
-                    startActivity(startEditActivity);
-                }
-            });
-        }
+        transactions = new ArrayList<Transaction>();
+        transactionAdapter = new TransactionAdapter(this, R.layout.transaction_view, transactions);
+        setListAdapter(transactionAdapter);
+
+        transactionListRunnable = new Runnable() {
+            @Override
+            public void run() {
+               transactionListHandler.sendEmptyMessage(0);
+            }
+        };
+
+        Thread thread = new Thread(null, transactionListRunnable, "FillTransactionsThread");
+        thread.start();
     }
+
+    private Handler transactionListHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+
+            transactions.add(new Transaction(20, new Date()));
+            transactionAdapter = new TransactionAdapter(MainActivity.this, R.layout.transaction_view, transactions);
+
+            setListAdapter(transactionAdapter);
+        }
+    };
 
 
     @Override
@@ -49,11 +73,13 @@ public class MainActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_new_transaction) {
-            System.out.println("New transaction");
+            Intent startNewTransactioNActivity = new Intent(getApplicationContext(), EditTransactionActivity.class);
+            startActivity(startNewTransactioNActivity);
             return true;
         }
         if (id == R.id.action_open_reports) {
-            System.out.println("Reports");
+            Intent startReportsActivity = new Intent(getApplicationContext(), ReportsActivity.class);
+            startActivity(startReportsActivity);
             return true;
         }
 

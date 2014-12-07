@@ -2,10 +2,10 @@
 <resources>
 
     <string name="app_name">MobileBudget</string>
-    <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_edit_transaction_view">Editar Transação</string>
     <string name="title_activity_new_transaction_view">Nova Transação</string>
     <string name="action_new_transaction">Nova Transação</string>
-    <string name="action_open_reports">Relatorios</string>
-
+    <string name="action_open_reports">Relatórios</string>
+    <string name="title_activity_reports">Relatórios</string>
+    <string name="empty_transactions_text">Para começar, clique em Nova Transação</string>
 </resources>

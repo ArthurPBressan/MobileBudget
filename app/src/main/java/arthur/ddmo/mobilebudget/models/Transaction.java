@@ -10,14 +10,13 @@ import java.util.Date;
  */
 public class Transaction extends SugarRecord<Transaction> {
     private int value;
-    private Date date;
+    
 
     public Transaction() {
     }
 
     public Transaction(int value, Date date) {
         this.value = value;
-        this.date = date;
     }
 
     public static Transaction[] getTransactionsByYear(int year) {
@@ -27,5 +26,9 @@ public class Transaction extends SugarRecord<Transaction> {
     public static Transaction[] getTransactionsByMonth(int year, int month) {
         Transaction[] yearTransactions = getTransactionsByYear(year);
         return new Transaction[0];
+    }
+
+    public int getValue() {
+        return value;
     }
 }
