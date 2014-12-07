@@ -1,11 +1,16 @@
 package arthur.ddmo.mobilebudget.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.DatePicker;
+import android.widget.TextView;
 
+import arthur.ddmo.mobilebudget.Constants;
 import arthur.ddmo.mobilebudget.R;
+import arthur.ddmo.mobilebudget.models.BudgetTransaction;
 
 public class EditTransactionActivity extends Activity {
 
@@ -13,6 +18,19 @@ public class EditTransactionActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_transaction_view);
+
+        Intent startupIntent = getIntent();
+        int transactionId = startupIntent.getIntExtra(Constants.KEY_INTENT_TRANSACTION, -1);
+        if (transactionId == -1) {
+            setTitle(R.string.title_activity_new_transaction_view);
+        } else {
+            BudgetTransaction budgetTransaction = BudgetTransaction.findById(BudgetTransaction.class, (long) transactionId);
+            DatePicker dp = (DatePicker) findViewById(R.id.transaction_date_picker);
+            dp.updateDate(budgetTransaction.getYear(), budgetTransaction.getMonth(), budgetTransaction.getDay());
+
+            TextView valueTV = (TextView) findViewById(R.id.edit_transaction_value);
+            valueTV.setText(String.valueOf(budgetTransaction.getValue()));
+        }
     }
 
 

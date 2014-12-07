@@ -8,22 +8,19 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
 
 import arthur.ddmo.mobilebudget.R;
-import arthur.ddmo.mobilebudget.models.Transaction;
+import arthur.ddmo.mobilebudget.models.BudgetTransaction;
 
 /**
  * Created by arthur on 07/12/14.
  */
-public class TransactionAdapter extends ArrayAdapter<Transaction> {
-    private ArrayList<Transaction> transactions;
+public class TransactionAdapter extends ArrayAdapter<BudgetTransaction> {
+    private ArrayList<BudgetTransaction> budgetTransactions;
 
-    public TransactionAdapter(Context context, int resource, ArrayList<Transaction> transactions) {
-        super(context, resource, transactions);
-        this.transactions = transactions;
+    public TransactionAdapter(Context context, int resource, ArrayList<BudgetTransaction> budgetTransactions) {
+        super(context, resource, budgetTransactions);
+        this.budgetTransactions = budgetTransactions;
     }
 
     @Override
@@ -33,18 +30,18 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
             convertView = inflater.inflate(R.layout.transaction_view, null);
         }
 
-        Transaction transaction = transactions.get(position);
+        BudgetTransaction budgetTransaction = budgetTransactions.get(position);
 
-        if (transaction != null) {
+        if (budgetTransaction != null) {
             TextView dateTextView = (TextView) convertView.findViewById(R.id.transaction_view_text_date);
             TextView valueTextView = (TextView) convertView.findViewById(R.id.transaction_view_text_value);
 
             if (valueTextView != null) {
-                valueTextView.setText(transaction.getValueString());
+                valueTextView.setText(budgetTransaction.getValueString());
             }
 
             if (dateTextView != null) {
-                dateTextView.setText(transaction.getDateString());
+                dateTextView.setText(budgetTransaction.getDateString());
             }
 
         }

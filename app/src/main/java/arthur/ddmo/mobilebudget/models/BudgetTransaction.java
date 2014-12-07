@@ -2,25 +2,22 @@ package arthur.ddmo.mobilebudget.models;
 
 import com.orm.SugarRecord;
 
-import java.math.BigDecimal;
 import java.text.NumberFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
  * Created by arthur on 30/11/14.
  */
-public class Transaction extends SugarRecord<Transaction> {
+public class BudgetTransaction extends SugarRecord<BudgetTransaction> {
     private int value;
 
     private int year;
     private int month;
     private int day;
 
-    public Transaction() {
+    public BudgetTransaction() {
     }
 
-    public Transaction(double value, int year, int month, int day) {
+    public BudgetTransaction(double value, int year, int month, int day) {
         this.value = (int) Math.round(value * 100);
         this.year = year;
         this.month = month;
@@ -32,7 +29,7 @@ public class Transaction extends SugarRecord<Transaction> {
     }
 
     public String getDateString() {
-        return padDate(day) + "/" + padDate(month);
+        return padDate(day) + "/" + padDate(month) + "/" + year;
     }
 
     public double getValue() {
@@ -42,16 +39,29 @@ public class Transaction extends SugarRecord<Transaction> {
     public String getValueString() {
         double value = getValue();
         NumberFormat formatter = NumberFormat.getCurrencyInstance();
-        return formatter.format(value);
+        String formatted = formatter.format(value);
+        return formatted.replace("$", "");
     }
 
     @Override
     public String toString() {
-        return "Transaction{" +
+        return "BudgetTransaction{" +
                 "value=" + value +
                 ", year=" + year +
                 ", month=" + month +
                 ", day=" + day +
                 '}';
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public int getDay() {
+        return day;
     }
 }

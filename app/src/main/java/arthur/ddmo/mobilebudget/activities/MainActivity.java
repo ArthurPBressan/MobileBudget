@@ -1,45 +1,38 @@
 package arthur.ddmo.mobilebudget.activities;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.logging.LogRecord;
 
 import arthur.ddmo.mobilebudget.Constants;
 import arthur.ddmo.mobilebudget.R;
 import arthur.ddmo.mobilebudget.adapters.TransactionAdapter;
-import arthur.ddmo.mobilebudget.models.Transaction;
+import arthur.ddmo.mobilebudget.models.BudgetTransaction;
 
 public class MainActivity extends ListActivity {
 
-    private ArrayList<Transaction> transactions;
     private TransactionAdapter transactionAdapter;
-    private Runnable transactionListRunnable;
+    private ArrayList<BudgetTransaction> budgetTransactions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        transactions = new ArrayList<Transaction>();
-        transactionAdapter = new TransactionAdapter(this, R.layout.transaction_view, transactions);
+        transactionAdapter = new TransactionAdapter(this, R.layout.transaction_view, new ArrayList<BudgetTransaction>());
         setListAdapter(transactionAdapter);
 
-        transactionListRunnable = new Runnable() {
+        Runnable transactionListRunnable = new Runnable() {
             @Override
             public void run() {
-               transactionListHandler.sendEmptyMessage(0);
+                transactionListHandler.sendEmptyMessage(0);
             }
         };
 
@@ -50,10 +43,8 @@ public class MainActivity extends ListActivity {
     private Handler transactionListHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-
-            transactions.add(new Transaction(20, 2014, 12, 07));
-            transactionAdapter = new TransactionAdapter(MainActivity.this, R.layout.transaction_view, transactions);
-
+            budgetTransactions = (ArrayList<BudgetTransaction>) BudgetTransaction.listAll(BudgetTransaction.class);
+            transactionAdapter = new TransactionAdapter(MainActivity.this, R.layout.transaction_view, budgetTransactions);
             setListAdapter(transactionAdapter);
         }
     };
@@ -61,9 +52,9 @@ public class MainActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        Transaction transaction = transactions.get(position);
+        BudgetTransaction budgetTransaction = budgetTransactions.get(position);
         Intent startEditTransaction = new Intent(getApplicationContext(), EditTransactionActivity.class);
-        startEditTransaction.putExtra(Constants.KEY_INTENT_TRANSACTION, transaction.getId());
+        startEditTransaction.putExtra(Constants.KEY_INTENT_TRANSACTION, budgetTransaction.getId());
         startActivity(startEditTransaction);
     }
 
