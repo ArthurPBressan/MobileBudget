@@ -9,14 +9,23 @@ import java.util.Date;
  * Created by arthur on 30/11/14.
  */
 public class Transaction extends SugarRecord<Transaction> {
-    private BigDecimal value;
+    private int value;
     private Date date;
 
     public Transaction() {
     }
 
-    public Transaction(BigDecimal value, Date date) {
+    public Transaction(int value, Date date) {
         this.value = value;
         this.date = date;
+    }
+
+    public static Transaction[] getTransactionsByYear(int year) {
+        return new Transaction[0];
+    }
+
+    public static Transaction[] getTransactionsByMonth(int year, int month) {
+        Transaction[] yearTransactions = getTransactionsByYear(year);
+        return new Transaction[0];
     }
 }
