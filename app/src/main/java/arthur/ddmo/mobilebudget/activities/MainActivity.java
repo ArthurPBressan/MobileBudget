@@ -1,5 +1,6 @@
 package arthur.ddmo.mobilebudget.activities;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,16 +29,17 @@ public class MainActivity extends ListActivity {
         setContentView(R.layout.activity_main);
         transactionAdapter = new TransactionAdapter(this, R.layout.transaction_view, new ArrayList<BudgetTransaction>());
         setListAdapter(transactionAdapter);
+        createRefreshThread().start();
+    }
 
+    private Thread createRefreshThread() {
         Runnable transactionListRunnable = new Runnable() {
             @Override
             public void run() {
                 transactionListHandler.sendEmptyMessage(0);
             }
         };
-
-        Thread thread = new Thread(null, transactionListRunnable, "FillTransactionsThread");
-        thread.start();
+        return new Thread(null, transactionListRunnable, "FillTransactionsThread");
     }
 
     private Handler transactionListHandler = new Handler() {
@@ -55,7 +57,7 @@ public class MainActivity extends ListActivity {
         BudgetTransaction budgetTransaction = budgetTransactions.get(position);
         Intent startEditTransaction = new Intent(getApplicationContext(), EditTransactionActivity.class);
         startEditTransaction.putExtra(Constants.KEY_INTENT_TRANSACTION, budgetTransaction.getId());
-        startActivity(startEditTransaction);
+        startActivityForResult(startEditTransaction, Constants.KEY_EDIT_TRANSACTION_CODE);
     }
 
     @Override
@@ -75,7 +77,7 @@ public class MainActivity extends ListActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_new_transaction) {
             Intent startNewTransaction = new Intent(getApplicationContext(), EditTransactionActivity.class);
-            startActivity(startNewTransaction);
+            startActivityForResult(startNewTransaction, Constants.KEY_EDIT_TRANSACTION_CODE);
             return true;
         }
         if (id == R.id.action_open_reports) {
@@ -85,5 +87,13 @@ public class MainActivity extends ListActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constants.KEY_EDIT_TRANSACTION_CODE && resultCode == Constants.RESULT_TRANSACTION_OK) {
+
+            createRefreshThread().start();
+        }
     }
 }

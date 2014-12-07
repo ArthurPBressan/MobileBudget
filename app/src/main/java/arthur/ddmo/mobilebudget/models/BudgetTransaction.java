@@ -18,7 +18,7 @@ public class BudgetTransaction extends SugarRecord<BudgetTransaction> {
     }
 
     public BudgetTransaction(double value, int year, int month, int day) {
-        this.value = (int) Math.round(value * 100);
+        this.value = parseValue(value);
         this.year = year;
         this.month = month;
         this.day = day;
@@ -33,7 +33,7 @@ public class BudgetTransaction extends SugarRecord<BudgetTransaction> {
     }
 
     public double getValue() {
-        return value/100;
+        return value/100.;
     }
 
     public String getValueString() {
@@ -63,5 +63,25 @@ public class BudgetTransaction extends SugarRecord<BudgetTransaction> {
 
     public int getDay() {
         return day;
+    }
+
+    public void setValue(double value) {
+        this.value = parseValue(value);
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    private int parseValue(double value) {
+        return (int) Math.floor(value * 100);
     }
 }

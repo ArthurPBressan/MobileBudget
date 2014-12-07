@@ -8,4 +8,5 @@
     <string name="action_open_reports">Relatórios</string>
     <string name="title_activity_reports">Relatórios</string>
     <string name="empty_transactions_text">Para começar, clique em Nova Transação</string>
+    <string name="toast_invalid_transaction_value">Valor inválido</string>
 </resources>
