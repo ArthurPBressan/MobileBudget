@@ -1,8 +1,11 @@
 package arthur.ddmo.mobilebudget.models;
 
 import com.orm.SugarRecord;
+import com.orm.query.Condition;
+import com.orm.query.Select;
 
 import java.text.NumberFormat;
+import java.util.List;
 
 /**
  * Created by arthur on 30/11/14.
@@ -32,8 +35,12 @@ public class BudgetTransaction extends SugarRecord<BudgetTransaction> {
         return padDate(day) + "/" + padDate(month) + "/" + year;
     }
 
-    public double getValue() {
+    private static double outValue(int value) {
         return value/100.;
+    }
+
+    public double getValue() {
+        return outValue(value);
     }
 
     public String getValueString() {
@@ -81,7 +88,29 @@ public class BudgetTransaction extends SugarRecord<BudgetTransaction> {
         this.day = day;
     }
 
-    private int parseValue(double value) {
+    private static int parseValue(double value) {
         return (int) Math.floor(value * 100);
+    }
+
+    public static double getAverageForMonth(int year, int month) {
+        List<BudgetTransaction> ls = Select.from(BudgetTransaction.class)
+                .where(Condition.prop("year").eq(year), Condition.prop("month").eq(month))
+                .list();
+        return getAverageFromTransactions(ls);
+    }
+
+    public static double getAverageForYear(int year) {
+        List<BudgetTransaction> ls = Select.from(BudgetTransaction.class)
+                .where(Condition.prop("year").eq(year))
+                .list();
+        return getAverageFromTransactions(ls);
+    }
+
+    private static double getAverageFromTransactions(List<BudgetTransaction> transactions) {
+        double sum = 0;
+        for (BudgetTransaction transaction : transactions) {
+            sum += transaction.getValue();
+        }
+        return outValue(parseValue(sum));
     }
 }
