@@ -111,6 +111,7 @@ public class BudgetTransaction extends SugarRecord<BudgetTransaction> {
         for (BudgetTransaction transaction : transactions) {
             sum += transaction.getValue();
         }
+        sum = sum/transactions.size();
         return outValue(parseValue(sum));
     }
 }
