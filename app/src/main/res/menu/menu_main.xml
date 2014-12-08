@@ -5,4 +5,6 @@
         android:showAsAction="ifRoom"/>
     <item android:id="@+id/action_open_reports" android:title="@string/action_open_reports"
         android:orderInCategory="100" android:showAsAction="never" />
+    <item android:title="@string/action_clean_database" android:showAsAction="never"
+        android:id="@+id/action_delete_transactions" android:orderInCategory="1000"/>
 </menu>

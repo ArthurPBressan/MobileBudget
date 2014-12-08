@@ -1,6 +1,6 @@
 package arthur.ddmo.mobilebudget.activities;
 
-import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,9 +16,22 @@ import java.util.ArrayList;
 import arthur.ddmo.mobilebudget.Constants;
 import arthur.ddmo.mobilebudget.R;
 import arthur.ddmo.mobilebudget.adapters.TransactionAdapter;
+import arthur.ddmo.mobilebudget.dialogs.ConfirmDeleteDatabaseDialog;
 import arthur.ddmo.mobilebudget.models.BudgetTransaction;
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends ListActivity implements ConfirmDeleteDatabaseDialog.ConfirmDeleteDatabaseListener {
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        BudgetTransaction.deleteAll(BudgetTransaction.class);
+        refreshList();
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        dialog.dismiss();
+    }
 
     private TransactionAdapter transactionAdapter;
     private ArrayList<BudgetTransaction> budgetTransactions;
@@ -29,7 +42,7 @@ public class MainActivity extends ListActivity {
         setContentView(R.layout.activity_main);
         transactionAdapter = new TransactionAdapter(this, R.layout.transaction_view, new ArrayList<BudgetTransaction>());
         setListAdapter(transactionAdapter);
-        createRefreshThread().start();
+        refreshList();
     }
 
     private Runnable transactionListRunnable = new Runnable() {
@@ -38,9 +51,6 @@ public class MainActivity extends ListActivity {
             transactionListHandler.sendEmptyMessage(0);
         }
     };
-    private Thread createRefreshThread() {
-        return new Thread(null, transactionListRunnable, "FillTransactionsThread");
-    }
 
     private Handler transactionListHandler = new Handler() {
         @Override
@@ -69,12 +79,8 @@ public class MainActivity extends ListActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_new_transaction) {
             Intent startNewTransaction = new Intent(getApplicationContext(), EditTransactionActivity.class);
             startActivityForResult(startNewTransaction, Constants.KEY_EDIT_TRANSACTION_CODE);
@@ -85,6 +91,11 @@ public class MainActivity extends ListActivity {
             startActivity(startReportsActivity);
             return true;
         }
+        if (id == R.id.action_delete_transactions) {
+            ConfirmDeleteDatabaseDialog dialog = new ConfirmDeleteDatabaseDialog();
+            dialog.show(getFragmentManager(), "delete");
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -92,7 +103,11 @@ public class MainActivity extends ListActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.KEY_EDIT_TRANSACTION_CODE && resultCode == Constants.RESULT_TRANSACTION_OK) {
-            createRefreshThread().start();
+            refreshList();
         }
+    }
+
+    private void refreshList() {
+        new Thread(null, transactionListRunnable, "FillTransactionsThread").start();
     }
 }

@@ -32,4 +32,11 @@
         <item>Novembro</item>
         <item>Dezembro</item>
     </string-array>
+
+    <string name="dialog_clean_database_title">Limpar transações</string>
+    <string name="dialog_clean_database_message">Essa operação não pode ser revertida</string>
+    <string name="dialog_clean_database_positive">Limpar</string>
+    <string name="dialog_clean_database_negative">Cancelar</string>
+
+    <string name="action_clean_database">Limpar transações</string>
 </resources>
