@@ -56,9 +56,6 @@ public class ReportsActivity extends Activity implements AdapterView.OnItemSelec
     }
 
     public void calcAverage(View view) {
-        System.out.println(year);
-        System.out.println(month);
-
         double avg;
         String message;
         if (month == 0) {
