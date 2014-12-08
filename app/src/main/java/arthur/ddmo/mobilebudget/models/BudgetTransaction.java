@@ -7,6 +7,8 @@ import com.orm.query.Select;
 import java.text.NumberFormat;
 import java.util.List;
 
+import arthur.ddmo.mobilebudget.Utils;
+
 /**
  * Created by arthur on 30/11/14.
  */
@@ -44,9 +46,7 @@ public class BudgetTransaction extends SugarRecord<BudgetTransaction> {
     }
 
     public String getValueString() {
-        double value = getValue();
-        NumberFormat formatter = NumberFormat.getCurrencyInstance();
-        String formatted = formatter.format(value);
+        String formatted = Utils.formatMoney(getValue());
         return formatted.replace("$", "");
     }
 

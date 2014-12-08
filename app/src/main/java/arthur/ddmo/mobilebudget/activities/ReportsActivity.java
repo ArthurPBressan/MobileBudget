@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import arthur.ddmo.mobilebudget.R;
+import arthur.ddmo.mobilebudget.Utils;
 import arthur.ddmo.mobilebudget.models.BudgetTransaction;
 
 public class ReportsActivity extends Activity implements AdapterView.OnItemSelectedListener {
@@ -60,12 +61,13 @@ public class ReportsActivity extends Activity implements AdapterView.OnItemSelec
         String message;
         if (month == 0) {
             avg = BudgetTransaction.getAverageForYear(year);
-            message = "Média de gastos para o ano de " + year + ": R$" + avg;
+            message = "Média de gastos para o ano de " + year + ": R";
         } else {
             avg = BudgetTransaction.getAverageForMonth(year, month);
-            message = "Média de gastos para o mês " + month + " do ano de " + year + ": R$" + avg;
+            message = "Média de gastos para o mês " + month + " do ano de " + year + ": R";
         }
-
+        String amount = Utils.formatMoney(avg);
+        message += amount;
         TextView tv = (TextView) findViewById(R.id.result_text_view);
         tv.setText(message);
     }
