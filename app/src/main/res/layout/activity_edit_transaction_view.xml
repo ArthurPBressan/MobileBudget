@@ -39,4 +39,11 @@
         android:spinnersShown="true"
         android:layout_marginTop="25dp" />
 
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_delete_transaction"
+        android:id="@+id/delete_transaction_button"
+        android:onClick="deleteTransaction"/>
+
 </LinearLayout>

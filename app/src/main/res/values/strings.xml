@@ -33,10 +33,12 @@
         <item>Dezembro</item>
     </string-array>
 
-    <string name="dialog_clean_database_title">Limpar transações</string>
+    <string name="dialog_clean_database_title">Apagar TODAS as transações</string>
+    <string name="dialog_clean_single_transaction_title">Apagar esta transação</string>
     <string name="dialog_clean_database_message">Essa operação não pode ser revertida</string>
-    <string name="dialog_clean_database_positive">Limpar</string>
+    <string name="dialog_clean_database_positive">Apagar</string>
     <string name="dialog_clean_database_negative">Cancelar</string>
 
-    <string name="action_clean_database">Limpar transações</string>
+    <string name="action_clean_database">Apagar transações</string>
+    <string name="button_delete_transaction">Apagar transação</string>
 </resources>

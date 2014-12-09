@@ -1,10 +1,13 @@
 package arthur.ddmo.mobilebudget.activities;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,9 +15,23 @@ import android.widget.Toast;
 
 import arthur.ddmo.mobilebudget.Constants;
 import arthur.ddmo.mobilebudget.R;
+import arthur.ddmo.mobilebudget.dialogs.ConfirmDeleteDatabaseDialog;
+import arthur.ddmo.mobilebudget.dialogs.ConfirmDeleteSingleTransactionDialog;
 import arthur.ddmo.mobilebudget.models.BudgetTransaction;
 
-public class EditTransactionActivity extends Activity {
+public class EditTransactionActivity extends Activity implements ConfirmDeleteSingleTransactionDialog.ConfirmDeleteTransactionListener {
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        BudgetTransaction transaction = BudgetTransaction.findById(BudgetTransaction.class, transactionId);
+        transaction.delete();
+        dialog.dismiss();
+        setResult(Constants.RESULT_TRANSACTION_OK);
+        finish();
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+    }
 
     private long transactionId;
 
@@ -34,6 +51,8 @@ public class EditTransactionActivity extends Activity {
 
         if (transactionId == -1) {
             setTitle(R.string.title_activity_new_transaction_view);
+            Button btDelete = (Button) findViewById(R.id.delete_transaction_button);
+            btDelete.setVisibility(View.GONE);
         } else {
             BudgetTransaction budgetTransaction = BudgetTransaction.findById(BudgetTransaction.class, (long) transactionId);
             transactionDate.updateDate(budgetTransaction.getYear(), budgetTransaction.getMonth(), budgetTransaction.getDay());
@@ -84,5 +103,10 @@ public class EditTransactionActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void deleteTransaction(View view) {
+        ConfirmDeleteSingleTransactionDialog dialog = new ConfirmDeleteSingleTransactionDialog();
+        dialog.show(getFragmentManager(), "delete");
     }
 }
